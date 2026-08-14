@@ -19,7 +19,7 @@ jobs:
 
       - name: Start backend
         run: |
-          node -e "$(sed -n '/<script>/,/<\/script>/p' backend.html)"
+          node backend.js &
 
       - name: Deploy frontend + index
         run: |
