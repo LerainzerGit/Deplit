@@ -1,14 +1,12 @@
-<script>
 const http = require("http");
 const fs = require("fs");
-const crypto = require("crypto");
 
-// Fake Google verification (replace with real JWT verification later)
+// Fake Google verification
 function verifyGoogleToken(idToken) {
-  return { email:"demo@user.com", id:"12345" };
+  return { email: "demo@user.com", id: "12345" };
 }
 
-// Fake AI assistant (replace with your Athenos Maya API)
+// Fake AI assistant
 function aiAssistant(prompt) {
   return "AI improved version:\n" + prompt.toUpperCase();
 }
@@ -20,7 +18,7 @@ http.createServer((req, res) => {
     req.on("end", () => {
       const { idToken } = JSON.parse(body);
       const user = verifyGoogleToken(idToken);
-      res.end(JSON.stringify({ ok:true, user }));
+      res.end(JSON.stringify({ ok: true, user }));
     });
   }
 
@@ -31,7 +29,7 @@ http.createServer((req, res) => {
       const { filename, content } = JSON.parse(body);
       const path = `/var/www/deplit/${filename}`;
       fs.writeFileSync(path, content);
-      res.end(JSON.stringify({ deployed:true }));
+      res.end(JSON.stringify({ deployed: true }));
     });
   }
 
@@ -45,5 +43,6 @@ http.createServer((req, res) => {
     });
   }
 
-}).listen(8080);
-</script>
+}).listen(8080, () => {
+  console.log("Deplit backend running on port 8080");
+});
