@@ -4,7 +4,7 @@
 
 function googleLogin() {
     google.accounts.id.initialize({
-        client_id: "YOUR_CLIENT_ID",
+        client_id: "621822595965-gaeg8uvcngbfbkojnqo88io540f4h6jp.apps.googleusercontent.com",
         callback: handleCredentialResponse
     });
 
