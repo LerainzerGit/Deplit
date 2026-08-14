@@ -4,6 +4,9 @@
   <title>Deplit Editor</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -14,12 +17,17 @@
 
 <div class="editor-container">
 
+  <p id="login-status" style="color:#1e90ff; margin-bottom:10px;">
+    Not logged in.
+  </p>
+
   <textarea id="editor">
 <h1>Hello Deplit!</h1>
 <p>This is your deployed page.</p>
   </textarea>
 
   <div style="margin-top:20px;">
+    <button onclick="googleLogin()">Login with Google</button>
     <button onclick="deployCode()">Deploy</button>
     <button onclick="previewCode()">Preview</button>
   </div>
