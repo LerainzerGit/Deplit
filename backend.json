@@ -1,0 +1,9 @@
+{
+  "backend_name": "Deplit Backend",
+  "backend_version": "1.0.0",
+  "backend_status": "online",
+  "backend_hosting": "GitHub Pages",
+  "backend_uptime": "static-hosted",
+  "region": "global-cdn",
+  "message": "Deplit backend JSON is being served successfully."
+}
