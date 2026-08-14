@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deplit Editor</title>
+  <meta charset="UTF-8">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body { background:#111; color:#eee; font-family:Arial; }
+    #editor {
+      width:100%; height:400px; background:#1a1a1a; color:#0f0;
+      padding:10px; border:1px solid #333; margin-top:20px;
+    }
+    button {
+      margin-top:20px; padding:10px 20px; background:#1e90ff;
+      border:none; color:#fff; border-radius:6px; cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Deplit Editor</h1>
+
+  <div id="g_id_onload"
+       data-client_id="YOUR_GOOGLE_CLIENT_ID"
+       data-callback="handleGoogleLogin">
+  </div>
+  <div class="g_id_signin" data-type="standard"></div>
+
+  <script>
+    let user = null;
+
+    function handleGoogleLogin(response) {
+      fetch("/auth/google", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ idToken: response.credential })
+      }).then(r => r.json()).then(data => {
+        user = data.user;
+        alert("Logged in as " + user.email);
+      });
+    }
+  </script>
+
+  <textarea id="editor"><h1>Hello Deplit!</h1></textarea>
+
+  <button onclick="deploy()">Deploy</button>
+  <button onclick="ai()">AI Assist</button>
+
+  <script>
+    function deploy() {
+      fetch("/deploy", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+          filename:"index.html",
+          content:document.getElementById("editor").value
+        })
+      }).then(() => alert("Deployed!"));
+    }
+
+    function ai() {
+      fetch("/ai", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+          prompt:"Improve this HTML:\n" + document.getElementById("editor").value
+        })
+      }).then(r => r.json()).then(data => {
+        document.getElementById("editor").value = data.output;
+      });
+    }
+  </script>
+
+</body>
+</html>
